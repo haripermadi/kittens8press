@@ -11,16 +11,19 @@
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <router-link class="nav-link" to="/about">About</router-link>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <li class="nav-item" v-if="token === ''">
             <a class="nav-link" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="token === ''">
             <a class="nav-link" data-toggle="modal" data-target="#loginModal">Log In</a>
+          </li>
+          <li class="nav-item" v-if="token !== ''">
+            <a class="nav-link" @click="logOutButton">Log Out</a>
           </li>
           </ul>
         </form>
@@ -31,7 +34,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Sign Up</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Create new user!!!</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -99,6 +102,7 @@
 </template>
 
 <script>
+import swal from 'sweetalert2'
 export default {
   name: 'NavBar',
   data () {
@@ -114,18 +118,50 @@ export default {
       }
     }
   },
+  computed: {
+    token: function () {
+      return this.$store.getters.getActiveUser.token
+    }
+  },
   methods: {
     signUp: function () {
       console.log(this.newUser)
+      this.$store.dispatch('signUp', this.newUser)
     },
     logIn: function () {
       console.log(this.userLgoin)
+      this.$store.dispatch('signIn', this.userLgoin)
+    },
+    logOutButton: function () {
+      swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Log me out!'
+      }).then((result) => {
+        if (result.value) {
+          swal(
+            'Log out!',
+            'Your have been logged out',
+            'success'
+          )
+          localStorage.removeItem('token')
+          localStorage.removeItem('username')
+          localStorage.removeItem('userId')
+          this.$router.push({path: '/'})
+        }
+      })
     }
   }
-
 }
 </script>
 
 <style>
+a {
+  cursor: pointer;
+}
 
 </style>
