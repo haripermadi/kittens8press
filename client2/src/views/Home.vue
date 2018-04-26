@@ -11,12 +11,12 @@
       <h4>List Articles</h4>
       <div class="card mb-3" v-for="(article, i) in listArticles" :key="i">
         <img class="card-img-top" :src="article.image" alt="Card image cap">
+        <hr>
         <div class="card-body">
           <h5 class="card-title">{{article.title}}</h5>
           <p class="card-text">{{article.content}}</p>
         </div>
         <div class="card-footer text-muted">
-          <p class="card-text"><small class="text-muted">{{article.updatedAt}}</small></p> | 
           updatedAt: {{article.updatedAt}} | Post by: {{article.author.username}}
         </div>
       </div>

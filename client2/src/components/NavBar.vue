@@ -13,6 +13,12 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/about">About</router-link>
           </li>
+          <li class="nav-item" v-if="token !== ''">
+            <router-link class="nav-link" to="/postarticle">Post Article</router-link>
+          </li>
+          <li class="nav-item" v-if="token !== ''">
+            <router-link class="nav-link" to="/myarticles">My Articles</router-link>
+          </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <ul class="navbar-nav mr-auto">
