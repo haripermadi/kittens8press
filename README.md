@@ -25,8 +25,8 @@ npm run serve
 /users/signup | POST | sign up user
 /users/signin | GET | login user
 /article | GET | Get all articles
-/article/getone/:id | GET | get one articles data by article id
+/article/author/:id | GET | get one articles data by user id
 /article | POST | Add new article
-/article/:id | PUT | Edit caption
+/article/:id | PUT | Edit article
 /article/:id | DELETE | Remove a article
 /article/category | GET | get articles by category
