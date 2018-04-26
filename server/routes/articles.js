@@ -7,6 +7,6 @@ router.post('/', createArticle)
 router.put('/:id', updateArticle)
 router.delete('/:id', removeArticle)
 router.get('/author/:id', getArticleByUser)
-router.get('/category', getArticleByCategory)
+router.post('/category', getArticleByCategory)
 
 module.exports = router;

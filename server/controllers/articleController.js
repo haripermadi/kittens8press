@@ -67,8 +67,7 @@ module.exports = {
     }
     let updateData = {
       title: req.body.title,
-      content: req.body.content,
-      category: req.body.category
+      content: req.body.content
     }
     Article.findOneAndUpdate(id,updateData, (error, data) => {
       if(!error) {
@@ -85,10 +84,11 @@ module.exports = {
   },
   getArticleByUser: (req, res) => {
     let userId = req.params.id
-    Article.findOne({
+    Article.find({
       author: userId
     })
     .sort({updatedAt: 'desc'})
+    .populate('author')
     .exec()
     .then(userArticles => {
       res.status(200).json({
@@ -102,10 +102,11 @@ module.exports = {
     })
   },
   getArticleByCategory: (req, res) => {
-    Article.findOne({
+    Article.find({
       category: req.body.category
     })
     .sort({updatedAt: 'desc'})
+    .populate('author')
     .exec()
     .then(articles => {
       res.status(200).json({
