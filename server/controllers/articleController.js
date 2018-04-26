@@ -26,7 +26,8 @@ module.exports = {
       title: req.body.title,
       content: req.body.content,
       category: req.body.category,
-      image: req.body.image,
+      // image: req.body.image,
+      image: req.file.cloudStoragePublicUrl,
       author: decoded.id
     }
     Article.create(input, (err, articleInputed) => {
